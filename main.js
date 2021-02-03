@@ -1,5 +1,3 @@
-console.log("hello");
-
 
 (function() {
 
@@ -21,30 +19,44 @@ const BASE_URL = 'https://api.github.com/users/StevenSchwengel';
    // }
 
 
- const generateHTML = (data) => {
-   console.log(data);
-   const name = data.name;
-   const org_url = data.organizations_url;
-   console.log(data.repos_url);
-   const avatar_url = data.avatar_url;
-   console.log(avatar_url);
-   fetch(avatar_url);
-   const public_data = data.public_repos;
-   console.log(org_url);
-  }
+ // const generateHTML = (data) => {
+ //   console.log(data);
+ //   const name = data.name;
+ //   const org_url = data.organizations_url;
+ //   console.log(data.repos_url);
+ //   const avatar_url = data.avatar_url;
+ //   console.log(avatar_url);
+ //   const public_data = data.public_repos;
+ //   console.log(org_url);
+ //  }
 
+
+  const generateHTML = (data) => {
+    console.log('data', data);
+    // const name = data.name;
+
+    const source = document.getElementById("name").innerHTML;
+    const template = Handlebars.compile(source);
+    const context = data.name;
+    const html = template(context);
+
+    document.querySelector('.container').innerHTML = html;
+
+// just added this.. }
+}
 
 
 fetch(`${BASE_URL}`, {
     headers: {
       Authorization: `token ${GITHUB_TOKEN}`
     }
-  })
-    .then(response => response.json())
-    // .then(data => console.log(data));
-    .then(data => generateHTML(data));
-})();
 
+// original
+  // })
+   .then(response => response.json())
+   .then(data => generateHTML(data));
+
+ )()};
 
 // fetch("https://api.github.com/users/StevenSchwengel/repos", {
 // fetch(`${BASE_URL}`, {
