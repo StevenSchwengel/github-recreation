@@ -46,6 +46,7 @@ const BASE_URL = 'https://api.github.com/users/StevenSchwengel';
 }
 
 
+
 fetch(`${BASE_URL}`, {
     headers: {
       Authorization: `token ${GITHUB_TOKEN}`
@@ -55,6 +56,27 @@ fetch(`${BASE_URL}`, {
   // })
    .then(response => response.json())
    .then(data => generateHTML(data));
+
+
+
+   const generateUser = (data) => {
+     // console.log('data', data);
+     // const name = data.name;
+     const source = document.getElementById("user-name").innerHTML;
+     const template = Handlebars.compile(source);
+     const context = data.name;
+     const html = template(context);
+
+     document.querySelector('.user').innerHTML = html;
+ }
+ fetch(`${BASE_URL}`)
+ .then(response => response.json())
+ .then(data => generateUser(data));
+
+
+
+
+
 
  )()};
 
